@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        textarea { width: 80%; height: 60px; margin-bottom: 10px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+        .comment-box { border: 1px solid #ddd; padding: 10px; margin: 5px; border-radius: 5px; }
+        .positive { background-color: lightblue; }
+        .negative { background-color: lightcoral; }
+        #piechart-container { margin-top: 20px; display: none; }
+    </style>
+</head>
+<body>
+    <h1>Sentiment Analysis</h1>
+
+    <form method="POST">
+        <textarea name="comment" placeholder="Write a comment..."></textarea><br>
+        <button type="submit">Add Comment</button>
+    </form>
+
+    <h2>Comments</h2>
+    <div id="comments-container">
+        {% for comment in comments %}
+            <div class="comment-box {% if comment.sentiment == 'Positive' %}positive{% elif comment.sentiment == 'Negative' %}negative{% endif %}">
+                {{ comment.text }} - <strong>{{ comment.sentiment or "Not Analyzed" }}</strong>
+            </div>
+        {% endfor %}
+    </div>
+
+    <br>
+    <button id="analyze-btn">Analyze</button>
+
+    <div id="piechart-container">
+        <h2>Sentiment Pie Chart</h2>
+        <img id="piechart" src="" alt="Sentiment Analysis Pie Chart">
+    </div>
+
+    <script>
+        $("#analyze-btn").click(function() {
+            $.post("/analyze", function(data) {
+                $("#comments-container").html("");
+                data.comments.forEach(comment => {
+                    let className = "";
+                    if (comment.sentiment === "Positive") className = "positive";
+                    if (comment.sentiment === "Negative") className = "negative";
+                    $("#comments-container").append(`<div class="comment-box ${className}">${comment.text} - <strong>${comment.sentiment}</strong></div>`);
+                });
+                $("#piechart").attr("src", "data:image/png;base64," + data.plot_url);
+                $("#piechart-container").show();
+            });
+        });
+    </script>
+</body>
+</html>
