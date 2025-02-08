@@ -1,7 +1,6 @@
-Flask
+flask
 numpy
 pandas
 matplotlib
 scikit-learn
 pickle-mixin
-cd
