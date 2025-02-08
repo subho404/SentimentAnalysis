@@ -6,22 +6,170 @@
     <title>Sentiment Analysis</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
-        textarea { width: 80%; height: 60px; margin-bottom: 10px; }
-        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
-        .comment-box { border: 1px solid #ddd; padding: 10px; margin: 5px; border-radius: 5px; }
-        .positive { background-color: lightblue; }
-        .negative { background-color: lightcoral; }
-        #piechart-container { margin-top: 20px; display: none; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 20px;
+  background-color: #f9f9f9;
+}
+
+/* Header Styles */
+
+h1 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: #666;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+h5 {
+  color: #999;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Form Styles */
+
+form {
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px; /* added max-width */
+}
+
+textarea {
+  width: 100%;
+  height: 60px;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button[type="submit"] {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+/* Comment Box Styles */
+
+.comment-box {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 300px; /* added max-width */
+}
+
+.positive {
+  background-color: lightblue;
+}
+
+.negative {
+  background-color: lightcoral;
+}
+
+/* Pie Chart Styles */
+
+#piechart-container {
+  margin-top: 20px;
+  display: none;
+}
+
+#piechart {
+  width: 50%;
+  height: 50%;
+  margin: 20px auto;
+  max-width: 300px; /* added max-width */
+}
+
+/* Responsive Styles */
+
+/* Desktop */
+@media only screen and (min-width: 1200px) {
+  form {
+    width: 60%;
+  }
+  .comment-box {
+    margin: 10px;
+  }
+}
+
+/* Tablet */
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  form {
+    width: 70%;
+  }
+  .comment-box {
+    margin: 5px;
+  }
+}
+
+/* Mobile */
+@media only screen and (max-width: 767px) {
+  form {
+    width: 90%;
+  }
+  .comment-box {
+    margin: 5px;
+  }
+  #piechart {
+    width: 80%;
+    height: 80%;
+  }
+}
+
+/* Extra Small Mobile */
+@media only screen and (max-width: 479px) {
+  form {
+    width: 100%;
+  }
+  .comment-box {
+    margin: 5px;
+  }
+  #piechart {
+    width: 90%;
+    height: 90%;
+  }
+}
     </style>
 </head>
 <body>
-    <h1>Sentiment Analysis</h1>
+    <h1>Sentiment Analysis-For Movies review</h1>
 
     <form method="POST">
         <textarea name="comment" placeholder="Write a comment..."></textarea><br>
         <button type="submit">Add Comment</button>
     </form>
+    <h5>made By : <a href="https://github.com/subho404">Subham Biswas</a></h5>
 
     <h2>Comments</h2>
     <div id="comments-container">
